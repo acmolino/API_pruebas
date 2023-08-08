@@ -7,16 +7,28 @@ use App\Models\Persona;
 
 class PersonaControlador extends Controller{
 
+    /**
+     * Traigo todas las personas
+     * 
+     */
     public function index(){
         $datosPersona = Persona::all();
         response()->json($datosPersona);
     }
 
+    /**
+     * Filtro por id
+     * 
+     */
     public function consultar($id){
         $datosPersona = Persona::find($id);
         response()->json($datosPersona);
     }
-
+    /**
+     *Método para POST
+     *  
+     * Agrego persona
+     */
     public function agregar(){
         $persona = new Persona();
         $persona->nombre = app()->request()->get('nombre');
@@ -24,6 +36,10 @@ class PersonaControlador extends Controller{
         $persona->save();
     }
 
+    /**
+     * 
+     * 
+     */
     public function borrar($id){
         Persona::destroy($id);
         response()->json(["message" => "El registro ".$id." se ha eliminado"]);
@@ -44,9 +60,15 @@ class PersonaControlador extends Controller{
     }
     
     public function mayoresDe($edad){
-        $personas = Persona::where('edad', $edad)->get();
+        /**
+         * Cualquiera de las dos formas llego al mismo resultado
+         *LA diferencia son otros paremetros que se hayan configurado, ejemplo 
+         *los camposhidden en la clas de Modelo
+         */
+        
+        //$personas = db()->query("SELECT * FROM persona WHERE edad > $edad")->all();
+        $personas = Persona::where('edad', '>',$edad)->get();
         response()->json($personas);
-
     }
 
 

@@ -18,4 +18,4 @@ app()->delete("/personas/{id}", "PersonaControlador@borrar");
 
 app()->put("/personas/{id}", "PersonaControlador@actualizar");
 
-app()->get("/personas/edad/{edad}", "PersonaControlador@mayoresDe");
+app()->get("/edad/{edad}", "PersonaControlador@mayoresDe");
